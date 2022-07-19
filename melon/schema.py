@@ -18,9 +18,15 @@ class IngredientType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     hello = graphene.String(default_value="Hi!")
-
+    goodbye = graphene.String(default_value='bye!')
     all_ingredients = graphene.List(IngredientType)
     category_by_name = graphene.Field(CategoryType, name=graphene.String(required=True))
+
+    def resolve_hello(root, info):
+        return 'Hello!'
+
+    def resolve_goodbye(root, info):
+        return 'See ya!'
 
     def resolve_all_ingredients(root, info):
         # We can easily optimize query count in the resolve method
